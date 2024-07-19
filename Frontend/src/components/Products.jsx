@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Products = () => {
 
@@ -39,6 +40,7 @@ const Products = () => {
             <th className="font-weight-bold border-2 border-primary text-center bg-warning">Price</th>
             <th className="font-weight-bold border-2 border-primary text-center bg-warning">Category</th>
             <th className="font-weight-bold border-2 border-primary text-center bg-warning">Company</th>
+            <th className="font-weight-bold border-2 border-primary text-center bg-warning">Update</th>
             <th className="font-weight-bold border-2 border-primary text-center bg-warning">Delete</th>
           </tr>
         </thead>
@@ -50,6 +52,7 @@ const Products = () => {
               <td className="border-2 border-primary text-center bg-body-secondary">Rs.{item.price}</td>
               <td className="border-2 border-primary text-center bg-body-secondary">{item.category}</td>
               <td className="border-2 border-primary text-center bg-body-secondary">{item.company}</td>
+              <td className="border-2 border-primary text-center bg-body-secondary"><Link Link to = {`/update/${item._id}`}> <button>Update</button></Link></td>
               <td className="border-2 border-primary text-center bg-body-secondary"><button className='' onClick={()=>deleteproduct(item._id)}>Delete</button></td>
             </tr>
           ))}

@@ -24,13 +24,15 @@ const App = () => {
       <Route element={<PrivateComponent/>}>
       <Route path='/products' element={<Products/>}  />
       <Route path='/add' element={<AddProduct/>}  />
-      <Route path='/update' element={<Updateproduct/>}  />
+      <Route path='/update/:id' element={<Updateproduct/>}  />
+      <Route path='/update' element={<h3>oops!! looks you are not authenticate</h3>}  />
       <Route path='/out' element={<LogOut/>}  />
       <Route path='/profile' element={<Profile/>}  />
       <Route path='/data' element={<Data/>}  />
       </Route>
 
       
+      <Route path='/' element={<Signup/>}  />
       <Route path='/signup' element={<Signup/>}  />
       <Route path='/login' element={<Login/>}  />
 

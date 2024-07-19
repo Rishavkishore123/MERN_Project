@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const AddProduct = () => {
 
-  const [productname, setProductName]=useState('');
+  const [name, setName]=useState('');
   const [price, setPrice]=useState('');
   const [category, setCategory]= useState('');
   const [company, setCompany]=useState('');
@@ -11,7 +11,7 @@ const AddProduct = () => {
 
   const addingProduct=async ()=>{
 
-    if(!productname || !price || !category || !company){
+    if(!name || !price || !category || !company){
       setError(true);
       return false;
     }
@@ -19,20 +19,22 @@ const AddProduct = () => {
     const userID=JSON.parse(localStorage.getItem("user"))._id;
     let result= await fetch('http://localhost:3001/addproducts',{
       method:"post",
-      body: JSON.stringify({name: productname, price, category, company, userID }),
+      body: JSON.stringify({name, price, category, company, userID }),
       headers:{
         'Content-type':'application/json'
       },
     })
 
-    result= await result.json();
+    const data= await result.json();
 
-    if(result){
+    if(data){
       setSuccess(true);
-      setProductName('');
+      setName('');
       setCategory('');
       setPrice('');
       setCompany('');
+      setError(false);
+
 
     }
 
@@ -53,22 +55,22 @@ const AddProduct = () => {
 <div className="card-body  ">
 
 <h5 className="card-title" >Product Name</h5>
-<input type='text' value={productname} onChange={(e)=>setProductName(e.target.value)} className='px-4' placeholder='enter your products'/>
- {error && !prodname && <span className='text-danger'>Enter valid name</span>}
+<input type='text' value={name} onChange={(e)=>setName(e.target.value)} className='px-2' placeholder='enter your products'/>
+ {error && !name && <span className='text-danger'>Enter valid name</span>}
 
 
 <h5 className="card-title my-2 ">Price</h5>
-<input type='text'value={price} onChange={(e)=>setPrice(e.target.value)} className='px-4 '  placeholder='enter your product-price'/>
+<input type='text'value={price} onChange={(e)=>setPrice(e.target.value)} className='px-2 '  placeholder='enter your product-price'/>
 {error && !price && <span className='text-danger'>Enter valid Price</span>}
 
 
 <h5 className="card-title  my-2">Category</h5>
-<input type='text' value={category} onChange={(e)=>setCategory(e.target.value)} className='px-4' placeholder='enter product category'/>
+<input type='text' value={category} onChange={(e)=>setCategory(e.target.value)} className='px-2' placeholder='enter product category'/>
 {error && !category && <span className='text-danger'>Enter valid categoy</span>}
 
 
 <h5 className="card-title  my-2">Company</h5>
-<input type='text' value={company} onChange={(e)=>setCompany(e.target.value)} className='px-4' placeholder='enter product company'/>
+<input type='text' value={company} onChange={(e)=>setCompany(e.target.value)} className='px-2' placeholder='enter product company'/>
 {error && !company && <span className='text-danger'>Enter valid company</span>}
 
 
@@ -78,10 +80,14 @@ const AddProduct = () => {
 <div className='text-center py-3 '>
 
 <button type="button" className="btn btn-primary btn-md btn-block w-25  "onClick={addingProduct} >Add Product</button>
+</div>
 
-{success && <span className='bg-text-success'>Product added successfully!</span>}
 
-    </div>
+
+{success && <span className='text-center text-bg-success'>Product added successfully</span> }
+
+
+    
     </div>
   )
 
