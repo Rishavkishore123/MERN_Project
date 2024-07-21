@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+
 
 const UpdateProduct = () => {
 
@@ -7,24 +9,47 @@ const UpdateProduct = () => {
   const [category, setCategory]= useState('');
   const [company, setCompany]=useState('');
   const [error, setError]= useState(false);
-  const [success, setSuccess]=useState(false);
+  const navigate =useNavigate();
   
 
-  const updateProduct= ()=>{
+  const params= useParams();
 
-   let result=({name:productname, price, category, company});
-    console.log(result);
+  useEffect(()=>{
+      getproductDetails();
+  },[])
 
-    if(result){
-        setSuccess(true);
-        setProductName('');
-        setPrice('');
-        setCategory('');
-        setCompany('');
-        
-        
-    }
+  const getproductDetails=async ()=>{
+    let result= await fetch(`http://localhost:3001/product/${params.id}`)
+    result= await result.json();
+    setProductName(result.name);
+    setPrice(result.price);
+    setCategory(result.category);
+    setCompany(result.company);
+  }
+
+  const updateProduct= async()=>{
+
+   let result=await fetch(`http://localhost:3001/product/${params.id}`,{
+    method:"Put",
+    body: JSON.stringify({name:productname,price,category,company}),
+    headers:{
+      'content-type':'application/json'
+    },
+
+   });
+   
+   result=await result.json();
+   if(result){
+    alert('product updated successfully');
+    navigate('/products');
+   }else{
+    alert('something went wrong')
+   }
+
+   
+  
     } 
+   
 
   
   return (
@@ -63,7 +88,6 @@ const UpdateProduct = () => {
 
 <button type="button" className="btn btn-primary btn-md btn-block w-25  "onClick={updateProduct} >Update Product</button>
 
-{success && <span className='bg-text-success'>Product updated successfully!</span>}
 
     </div>
     </div>

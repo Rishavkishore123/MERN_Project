@@ -52,7 +52,7 @@ const Products = () => {
               <td className="border-2 border-primary text-center bg-body-secondary">Rs.{item.price}</td>
               <td className="border-2 border-primary text-center bg-body-secondary">{item.category}</td>
               <td className="border-2 border-primary text-center bg-body-secondary">{item.company}</td>
-              <td className="border-2 border-primary text-center bg-body-secondary"><Link Link to = {`/update/${item._id}`}> <button>Update</button></Link></td>
+              <td className="border-2 border-primary text-center bg-body-secondary"><Link to = {`/update/${item._id}`}> <button>Update</button></Link></td>
               <td className="border-2 border-primary text-center bg-body-secondary"><button className='' onClick={()=>deleteproduct(item._id)}>Delete</button></td>
             </tr>
           ))}

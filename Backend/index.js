@@ -11,6 +11,7 @@ const User=require('./DB/User');
 const Info=require('./DB/info');
 
 const Product=require('./DB/Products');
+const Products = require('./DB/Products');
 
 app.post('/signup',async (req,resp)=>{
     let user=new User(req.body);
@@ -68,6 +69,27 @@ app.delete('/product/:id',async(req,resp)=>{
     const result=await Product.deleteOne({_id:req.params.id});
     resp.send(result);
     
+})
+
+app.get('/product/:id',async(req,resp)=>{
+    let result =await Product.findOne({_id:req.params.id});
+   
+    if(result){
+        resp.send(result);
+    }
+})
+
+app.put('/product/:id', async(req,resp)=>{
+    let result = await Products.updateOne(
+    
+        {_id:req.params.id},
+        {
+            $set: req.body
+        }
+    )
+    
+    resp.send(result)
+
 })
 
 app.listen(3001,()=>{
