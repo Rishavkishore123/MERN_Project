@@ -22,14 +22,38 @@ const Products = () => {
        getproduct();
      }
     }
+
+    const searchHANDLE=async (key)=>{
+      if(key){
+        let result=await fetch(`http://localhost:3001/search/${key}`);
+        result =await result.json();
+        if(result){
+          setProductList(result)
+        }
+      }
+      
+       else{
+          getproduct();
+        }
+      
+
+    }
    
 
 
   return (
     <>
     <div className='text-center py-4 '><h3>Products List</h3></div>
+
+    <div className='d-flex justify-content-center py-2 custom-rounded '>
+  <input type="text"
+   className="py-1 "
+    style={{width:"25rem"}} placeholder="search" 
+    onChange={(e)=>searchHANDLE(e.target.value)}
+  />
+</div>
       
-    <div className="container py-2 ">
+    <div className="container py-4 ">
   <div className="row">
     <div className="col-12 my-8">
       <table className="table table-bordered ">
@@ -45,7 +69,8 @@ const Products = () => {
           </tr>
         </thead>
         <tbody>
-          {productList.map((item,index) => (
+          {
+            productList.length>0 ? productList.map((item,index) => (
             <tr key={item._id} className="bg-danger text-white border-2 border-primary cursor-pointer ">
               <td className="border-2 border-primary text-center bg-body-secondary ">{index + 1}</td>
               <td className="border-2 border-primary text-center bg-body-secondary ">{item.name}</td>
@@ -55,7 +80,12 @@ const Products = () => {
               <td className="border-2 border-primary text-center bg-body-secondary"><Link to = {`/update/${item._id}`}> <button>Update</button></Link></td>
               <td className="border-2 border-primary text-center bg-body-secondary"><button className='' onClick={()=>deleteproduct(item._id)}>Delete</button></td>
             </tr>
-          ))}
+           )):
+           <div><h3>Items Not Found</h3></div>
+           
+
+
+          }
         </tbody>
       </table>
     </div>
