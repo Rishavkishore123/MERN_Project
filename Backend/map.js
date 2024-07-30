@@ -1,21 +1,32 @@
-const express= require('express');
-const app =express();
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 
-const http= require('http');
-const socket =require('socket.io');
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
 
-const server= http.createServer(app);
-const io= socket(server);
+const PORT = process.env.PORT || 4000;
 
-io.on("connection",()=>{
-    console.log(connected)
+app.get('/',(req,resp)=>{
+    resp.send("user visible")
 })
 
-app.get("/",(req,resp)=>{
-    resp.send("How was the day today")
-})
+io.on('connection', (socket) => {
+    console.log('A user connected');
+    
+    // Handle location updates here
+    socket.on('locationUpdate', (data) => {
+        // Broadcast the updated location to all clients
+        socket.broadcast.emit('locationUpdate', data);
+    });
 
-server.listen(5001,()=>{
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
+
+server.listen(PORT,()=>{
     console.log("server is running")
 })
 

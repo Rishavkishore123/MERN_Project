@@ -38,9 +38,9 @@ const Navbar = () => {
       
 
       <li className="nav-item">
-        <NavLink className="nav-link mx-2" to="/profile"style={({isActive})=>(isActive?
+        <NavLink className="nav-link mx-2" to="/tracker"style={({isActive})=>(isActive?
         {color:"black",fontWeight: "bold"}
-        :{color:"white"})}>Profile</NavLink>
+        :{color:"white"})}>Tracker</NavLink>
       </li>
 
       <li className="nav-item">

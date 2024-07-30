@@ -5,13 +5,13 @@ import Products from './components/Products'
 import AddProduct from './components/AddProduct'
 import Updateproduct from './components/Updateproduct'
 import LogOut from './components/LogOut'
-import Profile from './components/Profile'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Signup from './components/Signup'
 import PrivateComponent from './components/PrivateComponent'
 import Login from './components/Login'
 import Data from './components/Data'
+import Tracker from './components/Tracker'
 
 const App = () => {
   return (
@@ -27,7 +27,7 @@ const App = () => {
       <Route path='/update/:id' element={<Updateproduct/>}  />
       <Route path='/update' element={<h3>oops!! looks you are not authenticate</h3>}  />
       <Route path='/out' element={<LogOut/>}  />
-      <Route path='/profile' element={<Profile/>}  />
+      <Route path='/tracker' element={<Tracker/>}  />
       <Route path='/data' element={<Data/>}  />
       </Route>
 
